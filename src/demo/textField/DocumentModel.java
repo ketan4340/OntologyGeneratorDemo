@@ -11,10 +11,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.parser.ParserDelegator;
 
-import grammar.naturalLanguage.NaturalLanguage;
 import grammar.sentence.Sentence;
 import grammar.word.Word;
-import modules.syntacticParse.Cabocha;
+import modules.syntacticParse.CabochaDecoder;
+import parser.Cabocha;
 
 public class DocumentModel extends AbstractDocumentModel{
 
@@ -47,14 +47,13 @@ public class DocumentModel extends AbstractDocumentModel{
 	}
 
 	public List<Sentence> getSentences(String plainTexts) {
-		List<NaturalLanguage> nlList = Stream.of(plainTexts.split("\n"))
-				.map(plainText -> new NaturalLanguage(plainText))
-				.collect(Collectors.toList());		
+		List<String> texts = Stream.of(plainTexts.split("\n"))
+				.collect(Collectors.toList());
 		// PlainTextを改行を境に分解して解析
-		return cabocha.texts2sentences(nlList);
+		return new CabochaDecoder().decodeProcessOutput(cabocha.parse(texts));
 	}
 	private void plain2html() {
-		List<Sentence> sentenceList = new ArrayList<Sentence>();
+		List<Sentence> sentenceList = new ArrayList<>();
 		try {
 			sentenceList = getSentences(this.getText(0, this.getLength()));
 		} catch (BadLocationException e) {
