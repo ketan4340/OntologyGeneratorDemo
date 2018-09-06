@@ -11,10 +11,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.parser.ParserDelegator;
 
+import cabocha.Cabocha;
 import grammar.sentence.Sentence;
 import grammar.word.Word;
 import modules.syntacticParse.CabochaDecoder;
-import parser.Cabocha;
 
 public class DocumentModel extends AbstractDocumentModel{
 
