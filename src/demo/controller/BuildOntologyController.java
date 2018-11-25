@@ -2,7 +2,8 @@ package demo.controller;
 
 import java.awt.event.ActionListener;
 
-import data.RDF.Ontology;
+import org.apache.jena.rdf.model.Model;
+
 import demo.ontology.OntologyModel;
 import demo.ontology.OntologyTableView;
 import demo.textField.AbstractDocumentModel;
@@ -32,8 +33,8 @@ public class BuildOntologyController extends AbstractEditorController{
 	/** ActionListener **/
 	/* RunGeneratorボタンの実装 */
 	private ActionListener generateAction = (event -> {
-		Ontology ontology = iptModel.runGenerator();
-		ontModel.addAllTriples(ontology.getTriples());
+		Model ontology = iptModel.runGenerator();
+		ontModel.addOntology(ontology);
 	});
 
 
