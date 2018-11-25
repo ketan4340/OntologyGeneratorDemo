@@ -77,7 +77,7 @@ public class UseOntologyController extends AbstractEditorController{
 			// 選び出したオントロジーを追加
 			// モデルを編集
 			subOntModel.clear();
-			subOntModel.addAllTriples(relationList);
+			relationList.forEach(r -> subOntModel.addTriple(r.getSubject().toString(), r.getPredicate().toString(), r.getObject().toString()));
 
 			// }else if(event.getEventType() == HyperlinkEvent.EventType.ENTERED) { // カーソルを当てた場合
 			// }else if(event.getEventType() == HyperlinkEvent.EventType.EXITED) { // カーソルを外した場合

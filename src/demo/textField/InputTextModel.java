@@ -5,20 +5,23 @@ import java.util.List;
 
 import javax.swing.text.BadLocationException;
 
-import data.RDF.Ontology;
+import org.apache.jena.rdf.model.Model;
+
 import grammar.naturalLanguage.NaturalLanguage;
 import main.Generator;
 
 public class InputTextModel extends AbstractDocumentModel{
 
 	private static final long serialVersionUID = 1L;
+	
+	private final Generator generator = new Generator();
 
 	public InputTextModel() {
 		super();
 	}
 
 	// Generator実行
-	public Ontology runGenerator() {
+	public Model runGenerator() {
 		String allText;
 		try {
 			allText = getText(0, getLength());
@@ -29,6 +32,6 @@ public class InputTextModel extends AbstractDocumentModel{
 		List<NaturalLanguage> naturalLanguageParagraphs = 
 				Arrays.asList(NaturalLanguage.toNaturalLanguageArray(allText.split("\n")));
 				
-		return new Generator().generate(naturalLanguageParagraphs);
+		return generator.generate(naturalLanguageParagraphs);
 	}
 }
