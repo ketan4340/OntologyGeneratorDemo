@@ -12,6 +12,7 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.parser.ParserDelegator;
 
 import cabocha.Cabocha;
+import grammar.pattern.WordPattern;
 import grammar.sentence.Sentence;
 import grammar.word.Word;
 import modules.syntacticParse.CabochaDecoder;
@@ -24,7 +25,7 @@ public class DocumentModel extends AbstractDocumentModel{
 
 	private Cabocha cabocha;
 
-	private static String[] noun = {"名詞"};
+	private static WordPattern noun = new WordPattern("名詞");
 	private static String defaultPlainText = "この文章はデフォルトテキストです。";
 	private static String defaultHTMLTags =
 			"<head>default head</head>"
@@ -65,7 +66,7 @@ public class DocumentModel extends AbstractDocumentModel{
 			//htmlText += "<font size=\"+1\">";
 
 			for(final Word word : sentence.words()) {	// 文の単語を走査
-				htmlText += (word.hasAllTag(noun))	// 名詞ならアンカータグで囲む
+				htmlText += (word.matches(noun))	// 名詞ならアンカータグで囲む
 						? "<a href=\"" + word.name() + "\">" + word.name() + "</a>"
 						: word.name();
 			}
